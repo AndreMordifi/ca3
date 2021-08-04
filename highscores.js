@@ -5,9 +5,6 @@ $.ajax({
     "url": "https://ca3-quiz.herokuapp.com/getTopPlayers",
     "method": "GET",
     "timeout": 0,
-    "headers": {
-        "Content-Type": "application/x-www-form-urlencoded",
-    },
 }).fail((response) => {
     console.log("Error!");
     alert("An error occured, please try again later!");
