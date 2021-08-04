@@ -16,24 +16,41 @@ username.addEventListener('keyup', () => {
 saveHighScore = e => {
     e.preventDefault();
 
-    var settings = {
+    // First, get all users by the name.
+    $.ajax({
         "url": "https://ca3-quiz.herokuapp.com/getPlayerByName?name=" + username.value,
         "method": "GET",
         "timeout": 0,
         "headers": {
             "Content-Type": "application/x-www-form-urlencoded",
         },
-    };
-    $.ajax(settings).fail((response) => {
+    }).fail((response) => {
         console.log("Error!");
         alert("An error occured, please try again later!");
     }).done((response) => {
+        // If the response lenght > 0, means user exists in database
         if (response.data.length > 0) {
             return alert("A user already exists! Try a different name!");
         }
-        console.log(response);
+        // If not, can add a new player with the name!
+        $.ajax({
+            "url": "https://ca3-quiz.herokuapp.com/addPlayer",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            "data": {
+                "name": username.value,
+                "score": mostRecentScore,
+            }
+        }).fail((response) => {
+            console.log("Error!", response);
+            alert("An error occured, please try again later!");
+        }).done((response) => {
+            window.location.assign('./index.html');
+        });
     });
-    // window.location.assign('./index.html');
 
 
     // const score = {
