@@ -48,7 +48,7 @@ saveHighScore = e => {
             console.log("Error!", response);
             alert("An error occured, please try again later!");
         }).done((response) => {
-            console.log("And life goes on", reponse);
+            console.log("And life goes on", response);
             window.location.assign('./index.html');
         });
     });
