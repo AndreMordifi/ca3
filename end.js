@@ -26,8 +26,11 @@ saveHighScore = e => {
     };
     $.ajax(settings).fail((response) => {
         console.log("Error!");
-        alert("An error occured, please try again later!")
+        alert("An error occured, please try again later!");
     }).done((response) => {
+        if (response.data.length > 0) {
+            return alert("A user already exists! Try a different name!");
+        }
         console.log(response);
     });
     // window.location.assign('./index.html');
